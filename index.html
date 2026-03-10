@@ -9,16 +9,16 @@
         body { background: #f0f4f8; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
         .card { background: white; width: 100%; max-width: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
         .header { background: #1a56db; padding: 25px 20px; color: white; text-align: center; }
-        .header h2 { font-size: 1.2rem; margin-bottom: 5px; font-weight: 600; }
-        .stars { color: #ffbc00; font-size: 1.2rem; margin-bottom: 8px; }
-        .location { font-size: 0.85rem; opacity: 0.9; }
+        .header h2 { font-size: 1.1rem; margin-bottom: 5px; font-weight: 600; }
+        .stars { color: #ffbc00; font-size: 1.1rem; margin-bottom: 8px; }
+        .location { font-size: 0.8rem; opacity: 0.9; }
         .content { padding: 25px 20px; text-align: center; }
         .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; min-height: 100px; display: flex; align-items: center; }
-        #review-box { color: #334155; font-size: 0.95rem; line-height: 1.6; font-style: italic; width: 100%; }
-        .btn { background: #1a56db; color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; }
+        #review-box { color: #334155; font-size: 0.95rem; line-height: 1.5; font-style: italic; width: 100%; }
+        .btn { background: #1a56db; color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; }
         .btn.copied { background: #ff7043 !important; }
-        .status-msg { display: none; color: #2e7d32; font-size: 0.85rem; margin-top: 10px; font-weight: 600; }
-        .footer-text { font-size: 0.75rem; color: #94a3b8; margin-top: 15px; }
+        .status-msg { display: none; color: #2e7d32; font-size: 0.8rem; margin-top: 10px; font-weight: 600; }
+        .footer-text { font-size: 0.7rem; color: #94a3b8; margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -27,78 +27,57 @@
     <div class="header">
         <div class="stars">★★★★★</div>
         <h2>Future Boost Computer Academy</h2>
-        <div class="location">📍 Kurthaul-Parsa Road, Patna</div>
+        <div class="location">📍 Kurthaul, Patna</div>
     </div>
     <div class="content">
         <div class="review-container">
-            <div id="review-box">Loading...</div>
+            <div id="review-box">Generating...</div>
         </div>
         <button id="main-btn" class="btn" onclick="copyAndGo()">
             <span id="btn-icon">📋</span> <span id="btn-text">Copy Review & Continue</span>
         </button>
-        <div id="status" class="status-msg">● Redirecting to Google Maps ●</div>
-        <div class="footer-text">Powered by Future Boost AI</div>
+        <div id="status" class="status-msg">● Opening Google Maps ●</div>
+        <div class="footer-text">Powered by AI • Student Voice</div>
     </div>
 </div>
 
 <script>
-    // 1. One-liners (Short)
-    const shortOnes = [
+    // Pure "Human Style" Sentences - Inhe mix karne se AI feel nahi aayegi
+    const sentences = [
         "Best computer academy in Kurthaul! ⭐⭐⭐⭐⭐",
-        "Sanjeev sir is a great teacher, highly recommended.",
-        "Future Boost is the top institute for computer courses.",
-        "Girls ke liye ye sabse safe aur best computer center hai.",
-        "Best practical knowledge and environment in Patna.",
-        "ADIT course ke liye sabse badiya jagah hai."
+        "Sanjeev sir ki teaching style bahut achi hai.",
+        "Girls ke liye ye sabse safe aur disciplined institute hai.",
+        "Future Boost is the top institute for computer courses in Patna.",
+        "Yahan theory se zyada Practical Knowledge par focus hota hai.",
+        "Maine ADIT join kiya hai aur yahan AI bhi sikhaya ja raha hai, bahut badhiya hai.",
+        "Sanjeev sir har topic ko bahut simple example se samjhate hain.",
+        "Parsa-Sipara area me computer seekhne ke liye isse achi jagah nahi milegi.",
+        "Environment bahut positive hai aur Sanjeev Sir ka guidance career me help karta hai.",
+        "Lab bahut high-tech hai, practical karne ka pura mauka milta hai.",
+        "Smart class aur animation se padhna bahut easy ho gaya hai.",
+        "ADIT course ke liye best institute hai Kurthaul road par.",
+        "Online test aur notes ki suvidha bahut hi acchi hai.",
+        "Sabse achi baat yahan ki punctuality aur discipline hai.",
+        "I am very happy with the classes, best experience ever!",
+        "Future boost computer academy Patna ka number 1 center hai.",
+        "Practical training learning ko bahut effective bana deti hai.",
+        "Teachers bahut supportive hain aur har doubt clear karte hain.",
+        "Kurthaul market me ye sabse professional computer center hai.",
+        "Technobright se ab ye Future Boost ho gaya hai, facilities aur bhi badhiya hain."
     ];
 
-    // 2. Intros
-    const intros = [
-        "Future Boost Academy Kurthaul, Parsa aur Sipara ke students ke liye best choice hai.",
-        "Agar aap Patna me Kurthaul road par rehte hain toh computer seekhne ke liye ye trusted jagah hai.",
-        "Parsa-Sipara area me isse behtar environment aur location wala institute dusra nahi hai."
-    ];
-
-    // 3. Middle Parts (Topics)
-    const midParts = [
-        "Yahan theory se zyada Practical Knowledge par focus kiya jata hai.",
-        "Girls Safety ke maamle me ye Patna ka sabse safe aur disciplined institute hai.",
-        "Yahan ADIT aur AI jaise modern courses bahut hi kam fees me sikhaye jate hain.",
-        "Sanjeev Sir ki teaching aur unka personal guidance career me bahut help karta hai.",
-        "Smart class aur modern computers ke sath yahan practical karne ka experience bahut badiya hai."
-    ];
-
-    // 4. Closings
-    const closings = [
-        "Must join if you want quality education!",
-        "Very satisfied with the classes and discipline.",
-        "Truly the number 1 computer center in this area.",
-        "Best teachers and facility. 5 stars!"
-    ];
-
-    function generateMixReview() {
-        let dice = Math.floor(Math.random() * 3); // 0, 1, or 2
-
-        if (dice === 0) {
-            // Very Short Review (1 line)
-            return shortOnes[Math.floor(Math.random() * shortOnes.length)];
-        } 
-        else if (dice === 1) {
-            // Medium Review (2 lines)
-            let p1 = intros[Math.floor(Math.random() * intros.length)];
-            let p2 = shortOnes[Math.floor(Math.random() * shortOnes.length)];
-            return p1 + " " + p2;
-        } 
-        else {
-            // Long Review (3-4 lines)
-            let p1 = intros[Math.floor(Math.random() * intros.length)];
-            let p2 = midParts[Math.floor(Math.random() * midParts.length)];
-            let p3 = closings[Math.floor(Math.random() * closings.length)];
-            return p1 + " " + p2 + " " + p3;
-        }
+    function generateNaturalReview() {
+        // Shuffle the sentences array
+        let shuffled = sentences.sort(() => 0.5 - Math.random());
+        
+        // Randomly decide how many sentences to pick (1 to 3)
+        let count = Math.floor(Math.random() * 3) + 1;
+        
+        // Pick 'count' number of sentences and join them
+        return shuffled.slice(0, count).join(" ");
     }
 
-    document.getElementById('review-box').innerText = generateMixReview();
+    document.getElementById('review-box').innerText = generateNaturalReview();
 
     function copyAndGo() {
         const text = document.getElementById('review-box').innerText;
