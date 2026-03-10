@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Boost Academy - Review</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; background: #eef2f3; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); max-width: 450px; margin: auto; border-top: 6px solid #2196F3; }
+        h2 { color: #0d47a1; margin-bottom: 5px; }
+        p.loc { color: #666; font-size: 14px; margin-bottom: 20px; }
+        #review-box { font-size: 17px; font-style: italic; color: #333; margin: 20px 0; padding: 15px; border: 2px dashed #2196F3; border-radius: 10px; background: #f0f7ff; min-height: 50px; }
+        .btn { background: #2196F3; color: white; border: none; padding: 18px; border-radius: 10px; font-size: 19px; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3); }
+        .btn:active { transform: scale(0.97); }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Future Boost Computer Academy</h2>
+    <p class="loc">📍 Kurthaul, Patna</p>
+    <p>Aapke liye AI Review taiyaar hai:</p>
+    
+    <div id="review-box">Generating...</div>
+
+    <button class="btn" onclick="copyAndGo()">Copy Review & Open Maps</button>
+    <p style="font-size: 12px; color: #888; margin-top: 15px;">Review copy karke Maps par 5-Star ke saath Paste karein!</p>
+</div>
+
+<script>
+    // Institute Specific AI Logic
+    const start = ["Best computer academy in Kurthaul!", "Sanjeev sir ki teaching style bahut achi hai.", "Great place to learn computer.", "Future Boost is the best institute.", "Highly satisfied with the classes."];
+    const features = ["Projector se padhai hone ke karan jaldi samajh aata hai.", "Animation videos se concept bilkul clear ho jate hain.", "Website support aur online test ki suvidha bahut badiya hai.", "Notes aur online portal se padhna bahut easy ho gaya hai.", "Lab aur classroom bahut hi advanced hain."];
+    const end = ["Must join if you want to learn computer!", "Best experience ever. 5 Stars!", "Thanks to Sanjeev sir for the support.", "Sahi mein Patna ka best computer center hai.", "Strongly recommended for everyone!"];
+
+    function generateReview() {
+        let s = start[Math.floor(Math.random() * start.length)];
+        let f = features[Math.floor(Math.random() * features.length)];
+        let e = end[Math.floor(Math.random() * end.length)];
+        return `${s} ${f} ${e}`;
+    }
+
+    document.getElementById('review-box').innerText = `"${generateReview()}"`;
+
+    function copyAndGo() {
+        const text = document.getElementById('review-box').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Review Copy Ho Gaya! ✅\n\nAb 5-Star dekar Paste karein.");
+            window.location.href = "https://search.google.com/local/writereview?placeid=ChIJ439J8Lin8jkRV6XkcLqOpdA";
+        });
+    }
+</script>
+
+</body>
+</html>
