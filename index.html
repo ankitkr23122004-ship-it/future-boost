@@ -13,7 +13,7 @@
         .stars { color: #ffbc00; font-size: 1.2rem; margin-bottom: 8px; }
         .location { font-size: 0.85rem; opacity: 0.9; }
         .content { padding: 25px 20px; text-align: center; }
-        .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; min-height: 110px; display: flex; align-items: center; }
+        .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; min-height: 120px; display: flex; align-items: center; }
         #review-box { color: #334155; font-size: 0.95rem; line-height: 1.6; font-style: italic; width: 100%; }
         .btn { background: #1a56db; color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; }
         .btn.copied { background: #ff7043 !important; }
@@ -27,87 +27,76 @@
     <div class="header">
         <div class="stars">★★★★★</div>
         <h2>Future Boost Computer Academy</h2>
-        <div class="location">📍 Kurthaul, Patna</div>
+        <div class="location">📍 Kurthaul-Parsa Road, Patna</div>
     </div>
     <div class="content">
         <div class="review-container">
-            <div id="review-box">Smart AI generating...</div>
+            <div id="review-box">System is generating your unique feedback...</div>
         </div>
         <button id="main-btn" class="btn" onclick="copyAndGo()">
             <span id="btn-icon">📋</span> <span id="btn-text">Copy Review & Continue</span>
         </button>
-        <div id="status" class="status-msg">● Taking you to Google Reviews ●</div>
-        <div class="footer-text">Powered by AI • Real Student Feedback</div>
+        <div id="status" class="status-msg">● Redirecting to Google Maps ●</div>
+        <div class="footer-text">Powered by Future Boost AI System</div>
     </div>
 </div>
 
 <script>
-    const shortPool = [
-        "Best computer academy in Kurthaul! ⭐⭐⭐⭐⭐",
-        "Sanjeev sir is the best teacher for computer courses.",
-        "Future Boost Academy is highly recommended!",
-        "Very satisfied with the teaching and smart classes.",
-        "Excellent institute with modern facilities.",
-        "Must join for computer learning in Patna!"
+    const intro = [
+        "Future Boost Academy Kurthaul, Parsa aur Sipara ke students ke liye best choice hai.",
+        "Agar aap Patna me Kurthaul road par rehte hain toh computer seekhne ke liye ye trusted jagah hai.",
+        "Parsa-Sipara area me isse behtar environment aur location wala institute dusra nahi hai.",
+        "Kurthaul market me ye computer center apni high-quality education ke liye jana jata hai."
     ];
 
-    const academyPool = [
-        "Future Boost Computer Academy, Kurthaul computer learning ke liye ek bahut achha institute hai.",
-        "Pehle iska naam Technobright tha, par ab Future Boost banne ke baad ye aur bhi advanced ho gaya hai.",
-        "Kurthaul area me computer education ke liye yeh ek trusted institute hai."
+    const topics = [
+        "Yahan theory se zyada Practical Knowledge par focus kiya jata hai, jo job ke liye bahut zaroori hai.",
+        "Girls Safety ke maamle me ye Patna ka sabse safe aur disciplined institute hai, environment bahut acha hai.",
+        "Yahan ADIT, DCA, Tally aur AI jaise modern courses bahut hi kam fees me sikhaye jate hain.",
+        "Sanjeev Sir ki teaching aur unka personal guidance students ko career me bahut help karta hai.",
+        "Smart class aur modern computers ke sath yahan practical karne ka experience bahut hi badiya hai.",
+        "Sabse achi baat yahan ki Punctuality aur Discipline hai, jo students ko serious banati hai.",
+        "Yahan ke courses industry-ready hain aur AI modules ne padhai ko aur bhi advanced bana diya hai."
     ];
 
-    const teacherPool = [
-        "Sanjeev Sir ka teaching style bahut unique hai, wo har topic ko simple examples se samjhate hain.",
-        "Sanjeev Sir students ko sirf computer hi nahi balki discipline aur confidence bhi sikhate hain.",
-        "Teachers bahut supportive hain aur Sanjeev Sir ka guidance motivating hota hai."
+    const conclusion = [
+        "Girls ke liye ye sabse safe aur best computer center hai. Must join!",
+        "Practical seekhna hai toh yahan zaroor aayein. Highly recommended!",
+        "Parsa-Kurthaul area ka number 1 center, 5 stars from my side!",
+        "Best teachers and best facility in Patna. Very satisfied!",
+        "Future Boost is truly the best for computer courses."
     ];
 
-    const facilityPool = [
-        "Smart class aur online tests ki wajah se padhai bahut interesting ho gayi hai.",
-        "Yahan notes, quizzes aur practical training learning ko bahut effective bana dete hain.",
-        "Modern technology aur projector se padhne ka maza hi kuch aur hai."
-    ];
-
-    function generateReview() {
-        // Random Length Selection (1 to 3)
-        let lengthType = Math.floor(Math.random() * 3) + 1;
-
-        if (lengthType === 1) {
-            return shortPool[Math.floor(Math.random() * shortPool.length)];
-        } else if (lengthType === 2) {
-            let p1 = academyPool[Math.floor(Math.random() * academyPool.length)];
-            let p2 = teacherPool[Math.floor(Math.random() * teacherPool.length)];
-            return p1 + " " + p2;
-        } else {
-            let p1 = academyPool[Math.floor(Math.random() * academyPool.length)];
-            let p2 = teacherPool[Math.floor(Math.random() * teacherPool.length)];
-            let p3 = facilityPool[Math.floor(Math.random() * facilityPool.length)];
-            return p1 + " " + p2 + " " + p3;
+    function generateFinalReview() {
+        let p1 = intro[Math.floor(Math.random() * intro.length)];
+        let p3 = conclusion[Math.floor(Math.random() * conclusion.length)];
+        
+        // Pick 1 or 2 random topics for variable length
+        let count = Math.floor(Math.random() * 2) + 1; 
+        let selectedTopics = [];
+        let tempTopics = [...topics];
+        
+        for(let i=0; i<count; i++) {
+            let index = Math.floor(Math.random() * tempTopics.length);
+            selectedTopics.push(tempTopics.splice(index, 1));
         }
+        
+        return p1 + " " + selectedTopics.join(" ") + " " + p3;
     }
 
-    // Set Initial Review
-    document.getElementById('review-box').innerText = generateReview();
+    document.getElementById('review-box').innerText = generateFinalReview();
 
     function copyAndGo() {
         const text = document.getElementById('review-box').innerText;
         const btn = document.getElementById('main-btn');
-        const btnText = document.getElementById('btn-text');
-        const btnIcon = document.getElementById('btn-icon');
-        const status = document.getElementById('status');
-
         navigator.clipboard.writeText(text).then(() => {
             btn.classList.add('copied');
-            btnIcon.innerText = "✔";
-            btnText.innerText = "Copied! Redirecting...";
-            status.style.display = "block";
-            
+            document.getElementById('btn-icon').innerText = "✔";
+            document.getElementById('btn-text').innerText = "Copied! Redirecting...";
+            document.getElementById('status').style.display = "block";
             setTimeout(() => {
                 window.location.href = "https://search.google.com/local/writereview?placeid=ChIJ439J8Lin8jkRV6XkcLqOpdA";
-            }, 1500);
-        }).catch(err => {
-            alert("Please copy the text manually.");
+            }, 1800);
         });
     }
 </script>
