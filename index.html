@@ -13,7 +13,7 @@
         .stars { color: #ffbc00; font-size: 1.2rem; margin-bottom: 8px; }
         .location { font-size: 0.85rem; opacity: 0.9; }
         .content { padding: 25px 20px; text-align: center; }
-        .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; min-height: 100px; display: flex; align-items: center; }
+        .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; min-height: 110px; display: flex; align-items: center; }
         #review-box { color: #334155; font-size: 0.95rem; line-height: 1.6; font-style: italic; width: 100%; }
         .btn { background: #1a56db; color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; }
         .btn.copied { background: #ff7043 !important; }
@@ -42,8 +42,7 @@
 </div>
 
 <script>
-    // Alag-alag length ke liye pools
-    const shortReviews = [
+    const shortPool = [
         "Best computer academy in Kurthaul! ⭐⭐⭐⭐⭐",
         "Sanjeev sir is the best teacher for computer courses.",
         "Future Boost Academy is highly recommended!",
@@ -52,58 +51,63 @@
         "Must join for computer learning in Patna!"
     ];
 
-    const academyParts = [
+    const academyPool = [
         "Future Boost Computer Academy, Kurthaul computer learning ke liye ek bahut achha institute hai.",
         "Pehle iska naam Technobright tha, par ab Future Boost banne ke baad ye aur bhi advanced ho gaya hai.",
         "Kurthaul area me computer education ke liye yeh ek trusted institute hai."
     ];
 
-    const teacherParts = [
+    const teacherPool = [
         "Sanjeev Sir ka teaching style bahut unique hai, wo har topic ko simple examples se samjhate hain.",
         "Sanjeev Sir students ko sirf computer hi nahi balki discipline aur confidence bhi sikhate hain.",
         "Teachers bahut supportive hain aur Sanjeev Sir ka guidance motivating hota hai."
     ];
 
-    const facilityParts = [
+    const facilityPool = [
         "Smart class aur online tests ki wajah se padhai bahut interesting ho gayi hai.",
         "Yahan notes, quizzes aur practical training learning ko bahut effective bana dete hain.",
         "Modern technology aur projector se padhne ka maza hi kuch aur hai."
     ];
 
-    function generateSmartReview() {
-        // Randomly decide length: 1 = Short, 2 = Medium, 3 = Long
-        let type = Math.floor(Math.random() * 3) + 1;
+    function generateReview() {
+        // Random Length Selection (1 to 3)
+        let lengthType = Math.floor(Math.random() * 3) + 1;
 
-        if (type === 1) {
-            // Sirf ek chhota review
-            return shortReviews[Math.floor(Math.random() * shortReviews.length)];
-        } else if (type === 2) {
-            // Medium: Academy + Teacher
-            let p1 = academyParts[Math.floor(Math.random() * academyParts.length)];
-            let p2 = teacherParts[Math.floor(Math.random() * teacherParts.length)];
+        if (lengthType === 1) {
+            return shortPool[Math.floor(Math.random() * shortPool.length)];
+        } else if (lengthType === 2) {
+            let p1 = academyPool[Math.floor(Math.random() * academyPool.length)];
+            let p2 = teacherPool[Math.floor(Math.random() * teacherPool.length)];
             return p1 + " " + p2;
         } else {
-            // Long: Academy + Teacher + Facility
-            let p1 = academyParts[Math.floor(Math.random() * academyParts.length)];
-            let p2 = teacherParts[Math.floor(Math.random() * teacherParts.length)];
-            let p3 = facilityParts[Math.floor(Math.random() * facilityParts.length)];
+            let p1 = academyPool[Math.floor(Math.random() * academyPool.length)];
+            let p2 = teacherPool[Math.floor(Math.random() * teacherPool.length)];
+            let p3 = facilityPool[Math.floor(Math.random() * facilityPool.length)];
             return p1 + " " + p2 + " " + p3;
         }
     }
 
-    document.getElementById('review-box').innerText = generateSmartReview();
+    // Set Initial Review
+    document.getElementById('review-box').innerText = generateReview();
 
     function copyAndGo() {
         const text = document.getElementById('review-box').innerText;
         const btn = document.getElementById('main-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnIcon = document.getElementById('btn-icon');
+        const status = document.getElementById('status');
+
         navigator.clipboard.writeText(text).then(() => {
             btn.classList.add('copied');
-            document.getElementById('btn-icon').innerText = "✔";
-            document.getElementById('btn-text').innerText = "Copied! Redirecting...";
-            document.getElementById('status').style.display = "block";
+            btnIcon.innerText = "✔";
+            btnText.innerText = "Copied! Redirecting...";
+            status.style.display = "block";
+            
             setTimeout(() => {
                 window.location.href = "https://search.google.com/local/writereview?placeid=ChIJ439J8Lin8jkRV6XkcLqOpdA";
             }, 1500);
+        }).catch(err => {
+            alert("Please copy the text manually.");
         });
     }
 </script>
