@@ -13,7 +13,7 @@
         .stars { color: #ffbc00; font-size: 1.2rem; margin-bottom: 8px; }
         .location { font-size: 0.85rem; opacity: 0.9; }
         .content { padding: 25px 20px; text-align: center; }
-        .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; min-height: 120px; display: flex; align-items: center; }
+        .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; min-height: 100px; display: flex; align-items: center; }
         #review-box { color: #334155; font-size: 0.95rem; line-height: 1.6; font-style: italic; width: 100%; }
         .btn { background: #1a56db; color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; }
         .btn.copied { background: #ff7043 !important; }
@@ -31,60 +31,74 @@
     </div>
     <div class="content">
         <div class="review-container">
-            <div id="review-box">System is generating your unique feedback...</div>
+            <div id="review-box">Loading...</div>
         </div>
         <button id="main-btn" class="btn" onclick="copyAndGo()">
             <span id="btn-icon">📋</span> <span id="btn-text">Copy Review & Continue</span>
         </button>
         <div id="status" class="status-msg">● Redirecting to Google Maps ●</div>
-        <div class="footer-text">Powered by Future Boost AI System</div>
+        <div class="footer-text">Powered by Future Boost AI</div>
     </div>
 </div>
 
 <script>
-    const intro = [
+    // 1. One-liners (Short)
+    const shortOnes = [
+        "Best computer academy in Kurthaul! ⭐⭐⭐⭐⭐",
+        "Sanjeev sir is a great teacher, highly recommended.",
+        "Future Boost is the top institute for computer courses.",
+        "Girls ke liye ye sabse safe aur best computer center hai.",
+        "Best practical knowledge and environment in Patna.",
+        "ADIT course ke liye sabse badiya jagah hai."
+    ];
+
+    // 2. Intros
+    const intros = [
         "Future Boost Academy Kurthaul, Parsa aur Sipara ke students ke liye best choice hai.",
         "Agar aap Patna me Kurthaul road par rehte hain toh computer seekhne ke liye ye trusted jagah hai.",
-        "Parsa-Sipara area me isse behtar environment aur location wala institute dusra nahi hai.",
-        "Kurthaul market me ye computer center apni high-quality education ke liye jana jata hai."
+        "Parsa-Sipara area me isse behtar environment aur location wala institute dusra nahi hai."
     ];
 
-    const topics = [
-        "Yahan theory se zyada Practical Knowledge par focus kiya jata hai, jo job ke liye bahut zaroori hai.",
-        "Girls Safety ke maamle me ye Patna ka sabse safe aur disciplined institute hai, environment bahut acha hai.",
-        "Yahan ADIT, DCA, Tally aur AI jaise modern courses bahut hi kam fees me sikhaye jate hain.",
-        "Sanjeev Sir ki teaching aur unka personal guidance students ko career me bahut help karta hai.",
-        "Smart class aur modern computers ke sath yahan practical karne ka experience bahut hi badiya hai.",
-        "Sabse achi baat yahan ki Punctuality aur Discipline hai, jo students ko serious banati hai.",
-        "Yahan ke courses industry-ready hain aur AI modules ne padhai ko aur bhi advanced bana diya hai."
+    // 3. Middle Parts (Topics)
+    const midParts = [
+        "Yahan theory se zyada Practical Knowledge par focus kiya jata hai.",
+        "Girls Safety ke maamle me ye Patna ka sabse safe aur disciplined institute hai.",
+        "Yahan ADIT aur AI jaise modern courses bahut hi kam fees me sikhaye jate hain.",
+        "Sanjeev Sir ki teaching aur unka personal guidance career me bahut help karta hai.",
+        "Smart class aur modern computers ke sath yahan practical karne ka experience bahut badiya hai."
     ];
 
-    const conclusion = [
-        "Girls ke liye ye sabse safe aur best computer center hai. Must join!",
-        "Practical seekhna hai toh yahan zaroor aayein. Highly recommended!",
-        "Parsa-Kurthaul area ka number 1 center, 5 stars from my side!",
-        "Best teachers and best facility in Patna. Very satisfied!",
-        "Future Boost is truly the best for computer courses."
+    // 4. Closings
+    const closings = [
+        "Must join if you want quality education!",
+        "Very satisfied with the classes and discipline.",
+        "Truly the number 1 computer center in this area.",
+        "Best teachers and facility. 5 stars!"
     ];
 
-    function generateFinalReview() {
-        let p1 = intro[Math.floor(Math.random() * intro.length)];
-        let p3 = conclusion[Math.floor(Math.random() * conclusion.length)];
-        
-        // Pick 1 or 2 random topics for variable length
-        let count = Math.floor(Math.random() * 2) + 1; 
-        let selectedTopics = [];
-        let tempTopics = [...topics];
-        
-        for(let i=0; i<count; i++) {
-            let index = Math.floor(Math.random() * tempTopics.length);
-            selectedTopics.push(tempTopics.splice(index, 1));
+    function generateMixReview() {
+        let dice = Math.floor(Math.random() * 3); // 0, 1, or 2
+
+        if (dice === 0) {
+            // Very Short Review (1 line)
+            return shortOnes[Math.floor(Math.random() * shortOnes.length)];
+        } 
+        else if (dice === 1) {
+            // Medium Review (2 lines)
+            let p1 = intros[Math.floor(Math.random() * intros.length)];
+            let p2 = shortOnes[Math.floor(Math.random() * shortOnes.length)];
+            return p1 + " " + p2;
+        } 
+        else {
+            // Long Review (3-4 lines)
+            let p1 = intros[Math.floor(Math.random() * intros.length)];
+            let p2 = midParts[Math.floor(Math.random() * midParts.length)];
+            let p3 = closings[Math.floor(Math.random() * closings.length)];
+            return p1 + " " + p2 + " " + p3;
         }
-        
-        return p1 + " " + selectedTopics.join(" ") + " " + p3;
     }
 
-    document.getElementById('review-box').innerText = generateFinalReview();
+    document.getElementById('review-box').innerText = generateMixReview();
 
     function copyAndGo() {
         const text = document.getElementById('review-box').innerText;
