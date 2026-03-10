@@ -7,18 +7,29 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background: #f0f4f8; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-        .card { background: white; width: 100%; max-width: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .header { background: #1a56db; padding: 25px 20px; color: white; text-align: center; position: relative; }
+        
+        /* Professional Card Design */
+        .card { background: white; width: 100%; max-width: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
+        
+        /* Blue Header */
+        .header { background: #1a56db; padding: 25px 20px; color: white; text-align: center; }
         .header h2 { font-size: 1.2rem; margin-bottom: 5px; font-weight: 600; }
         .stars { color: #ffbc00; font-size: 1.2rem; margin-bottom: 8px; }
-        .location { font-size: 0.85rem; opacity: 0.9; display: flex; align-items: center; justify-content: center; gap: 5px; }
-        .content { padding: 25px 20px; }
-        .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; position: relative; margin-bottom: 20px; text-align: left; min-height: 120px; }
+        .location { font-size: 0.85rem; opacity: 0.9; }
+        
+        /* Review Area */
+        .content { padding: 25px 20px; text-align: center; }
+        .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; min-height: 120px; position: relative; }
         #review-box { color: #334155; font-size: 0.95rem; line-height: 1.6; font-style: italic; }
+        
+        /* Action Button */
         .btn { background: #1a56db; color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; }
+        
+        /* Orange State after click */
         .btn.copied { background: #ff7043 !important; }
-        .status-msg { display: none; color: #2e7d32; font-size: 0.85rem; margin-top: 10px; text-align: center; font-weight: 600; }
-        .footer-text { text-align: center; font-size: 0.75rem; color: #94a3b8; margin-top: 15px; }
+        
+        .status-msg { display: none; color: #2e7d32; font-size: 0.85rem; margin-top: 10px; font-weight: 600; }
+        .footer-text { font-size: 0.75rem; color: #94a3b8; margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -32,7 +43,7 @@
     
     <div class="content">
         <div class="review-container">
-            <div id="review-box">Generating...</div>
+            <div id="review-box">Loading your review...</div>
         </div>
 
         <button id="main-btn" class="btn" onclick="copyAndGo()">
@@ -45,8 +56,8 @@
 </div>
 
 <script>
-    // Aapke diye huye real reviews ka data
-    const realReviews = [
+    // Aapke saare 5 reviews ek jagah
+    const reviews = [
         "Future Boost Computer Academy, Kurthaul computer learning ke liye ek bahut achha institute hai. Sanjeev Sir ka teaching style bahut unique hai, wo har topic ko simple example se samjhate hain. Smart class aur online tests ki wajah se padhai aur bhi interesting ho gayi hai.",
         "Pehle jab iska naam Technobright tha tab bhi institute achha tha, lekin ab Future Boost Computer Academy banne ke baad aur bhi better ho gaya hai. Yahan notes, quizzes aur online test system ki wajah se padhne ka tarika bahut easy ho gaya hai.",
         "Future Boost Computer Academy, Kurthaul me padhai ka environment bahut positive hai. Sanjeev Sir students ko sirf computer hi nahi balki discipline aur confidence bhi sikhate hain. Smart class aur practical training learning ko aur effective bana dete hain.",
@@ -54,8 +65,9 @@
         "Maine yahan computer course join kiya aur experience bahut achha raha. Future Boost Computer Academy me padhai ka system modern hai aur Sanjeev Sir ka guidance students ke liye bahut motivating hota hai. Kurthaul area me computer education ke liye yeh ek trusted institute hai."
     ];
 
-    // Page load par random review dikhayein
-    document.getElementById('review-box').innerText = realReviews[Math.floor(Math.random() * realReviews.length)];
+    // Page khulne par ek random review uthana
+    const randomReview = reviews[Math.floor(Math.random() * reviews.length)];
+    document.getElementById('review-box').innerText = randomReview;
 
     function copyAndGo() {
         const text = document.getElementById('review-box').innerText;
@@ -64,16 +76,22 @@
         const btnIcon = document.getElementById('btn-icon');
         const status = document.getElementById('status');
 
+        // Clipboard mein copy karna
         navigator.clipboard.writeText(text).then(() => {
+            // Button ko orange karna aur text badalna
             btn.classList.add('copied');
             btnIcon.innerText = "✔";
             btnText.innerText = "Copied! Redirecting...";
+            
+            // Redirect message dikhana
             status.style.display = "block";
             
+            // 1.5 second baad Maps par bhejna
             setTimeout(() => {
-                // Aapka Maps Review Link
                 window.location.href = "https://search.google.com/local/writereview?placeid=ChIJ439J8Lin8jkRV6XkcLqOpdA";
             }, 1500);
+        }).catch(err => {
+            alert("Error: Mobile browser settings may block clipboard. Please copy manually.");
         });
     }
 </script>
