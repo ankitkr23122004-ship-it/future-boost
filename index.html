@@ -7,27 +7,16 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background: #f0f4f8; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-        
-        /* Professional Card Design */
         .card { background: white; width: 100%; max-width: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
-        
-        /* Blue Header */
         .header { background: #1a56db; padding: 25px 20px; color: white; text-align: center; }
         .header h2 { font-size: 1.2rem; margin-bottom: 5px; font-weight: 600; }
         .stars { color: #ffbc00; font-size: 1.2rem; margin-bottom: 8px; }
         .location { font-size: 0.85rem; opacity: 0.9; }
-        
-        /* Review Area */
         .content { padding: 25px 20px; text-align: center; }
-        .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; min-height: 120px; position: relative; }
-        #review-box { color: #334155; font-size: 0.95rem; line-height: 1.6; font-style: italic; }
-        
-        /* Action Button */
+        .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; min-height: 100px; display: flex; align-items: center; }
+        #review-box { color: #334155; font-size: 0.95rem; line-height: 1.6; font-style: italic; width: 100%; }
         .btn { background: #1a56db; color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; }
-        
-        /* Orange State after click */
         .btn.copied { background: #ff7043 !important; }
-        
         .status-msg { display: none; color: #2e7d32; font-size: 0.85rem; margin-top: 10px; font-weight: 600; }
         .footer-text { font-size: 0.75rem; color: #94a3b8; margin-top: 15px; }
     </style>
@@ -40,61 +29,83 @@
         <h2>Future Boost Computer Academy</h2>
         <div class="location">📍 Kurthaul, Patna</div>
     </div>
-    
     <div class="content">
         <div class="review-container">
-            <div id="review-box">Loading your review...</div>
+            <div id="review-box">Smart AI generating...</div>
         </div>
-
         <button id="main-btn" class="btn" onclick="copyAndGo()">
             <span id="btn-icon">📋</span> <span id="btn-text">Copy Review & Continue</span>
         </button>
-        
         <div id="status" class="status-msg">● Taking you to Google Reviews ●</div>
-        <div class="footer-text">Powered by AI • Authentic Student Reviews</div>
+        <div class="footer-text">Powered by AI • Real Student Feedback</div>
     </div>
 </div>
 
 <script>
-    // Aapke saare 5 reviews ek jagah
-    const reviews = [
-        "Future Boost Computer Academy, Kurthaul computer learning ke liye ek bahut achha institute hai. Sanjeev Sir ka teaching style bahut unique hai, wo har topic ko simple example se samjhate hain. Smart class aur online tests ki wajah se padhai aur bhi interesting ho gayi hai.",
-        "Pehle jab iska naam Technobright tha tab bhi institute achha tha, lekin ab Future Boost Computer Academy banne ke baad aur bhi better ho gaya hai. Yahan notes, quizzes aur online test system ki wajah se padhne ka tarika bahut easy ho gaya hai.",
-        "Future Boost Computer Academy, Kurthaul me padhai ka environment bahut positive hai. Sanjeev Sir students ko sirf computer hi nahi balki discipline aur confidence bhi sikhate hain. Smart class aur practical training learning ko aur effective bana dete hain.",
-        "Yeh institute computer courses ke liye ek great place hai. Yahan smart classes, online tests, quizzes aur proper notes milte hain jo exam preparation me bahut help karte hain. Teachers bhi bahut supportive hain.",
-        "Maine yahan computer course join kiya aur experience bahut achha raha. Future Boost Computer Academy me padhai ka system modern hai aur Sanjeev Sir ka guidance students ke liye bahut motivating hota hai. Kurthaul area me computer education ke liye yeh ek trusted institute hai."
+    // Alag-alag length ke liye pools
+    const shortReviews = [
+        "Best computer academy in Kurthaul! ⭐⭐⭐⭐⭐",
+        "Sanjeev sir is the best teacher for computer courses.",
+        "Future Boost Academy is highly recommended!",
+        "Very satisfied with the teaching and smart classes.",
+        "Excellent institute with modern facilities.",
+        "Must join for computer learning in Patna!"
     ];
 
-    // Page khulne par ek random review uthana
-    const randomReview = reviews[Math.floor(Math.random() * reviews.length)];
-    document.getElementById('review-box').innerText = randomReview;
+    const academyParts = [
+        "Future Boost Computer Academy, Kurthaul computer learning ke liye ek bahut achha institute hai.",
+        "Pehle iska naam Technobright tha, par ab Future Boost banne ke baad ye aur bhi advanced ho gaya hai.",
+        "Kurthaul area me computer education ke liye yeh ek trusted institute hai."
+    ];
+
+    const teacherParts = [
+        "Sanjeev Sir ka teaching style bahut unique hai, wo har topic ko simple examples se samjhate hain.",
+        "Sanjeev Sir students ko sirf computer hi nahi balki discipline aur confidence bhi sikhate hain.",
+        "Teachers bahut supportive hain aur Sanjeev Sir ka guidance motivating hota hai."
+    ];
+
+    const facilityParts = [
+        "Smart class aur online tests ki wajah se padhai bahut interesting ho gayi hai.",
+        "Yahan notes, quizzes aur practical training learning ko bahut effective bana dete hain.",
+        "Modern technology aur projector se padhne ka maza hi kuch aur hai."
+    ];
+
+    function generateSmartReview() {
+        // Randomly decide length: 1 = Short, 2 = Medium, 3 = Long
+        let type = Math.floor(Math.random() * 3) + 1;
+
+        if (type === 1) {
+            // Sirf ek chhota review
+            return shortReviews[Math.floor(Math.random() * shortReviews.length)];
+        } else if (type === 2) {
+            // Medium: Academy + Teacher
+            let p1 = academyParts[Math.floor(Math.random() * academyParts.length)];
+            let p2 = teacherParts[Math.floor(Math.random() * teacherParts.length)];
+            return p1 + " " + p2;
+        } else {
+            // Long: Academy + Teacher + Facility
+            let p1 = academyParts[Math.floor(Math.random() * academyParts.length)];
+            let p2 = teacherParts[Math.floor(Math.random() * teacherParts.length)];
+            let p3 = facilityParts[Math.floor(Math.random() * facilityParts.length)];
+            return p1 + " " + p2 + " " + p3;
+        }
+    }
+
+    document.getElementById('review-box').innerText = generateSmartReview();
 
     function copyAndGo() {
         const text = document.getElementById('review-box').innerText;
         const btn = document.getElementById('main-btn');
-        const btnText = document.getElementById('btn-text');
-        const btnIcon = document.getElementById('btn-icon');
-        const status = document.getElementById('status');
-
-        // Clipboard mein copy karna
         navigator.clipboard.writeText(text).then(() => {
-            // Button ko orange karna aur text badalna
             btn.classList.add('copied');
-            btnIcon.innerText = "✔";
-            btnText.innerText = "Copied! Redirecting...";
-            
-            // Redirect message dikhana
-            status.style.display = "block";
-            
-            // 1.5 second baad Maps par bhejna
+            document.getElementById('btn-icon').innerText = "✔";
+            document.getElementById('btn-text').innerText = "Copied! Redirecting...";
+            document.getElementById('status').style.display = "block";
             setTimeout(() => {
                 window.location.href = "https://search.google.com/local/writereview?placeid=ChIJ439J8Lin8jkRV6XkcLqOpdA";
             }, 1500);
-        }).catch(err => {
-            alert("Error: Mobile browser settings may block clipboard. Please copy manually.");
         });
     }
 </script>
-
 </body>
 </html>
