@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technobright Education - Punpun</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background: #f0fdfa; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        .card { background: white; width: 100%; max-width: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #ccfbf1; }
+        /* Punpun Theme: Teal/Cyan */
+        .header { background: #0891b2; padding: 25px 20px; color: white; text-align: center; }
+        .header h2 { font-size: 1.1rem; margin-bottom: 5px; font-weight: 600; letter-spacing: 0.5px; }
+        .stars { color: #fbbf24; font-size: 1.1rem; margin-bottom: 8px; }
+        .location { font-size: 0.8rem; opacity: 0.9; }
+        .content { padding: 25px 20px; text-align: center; }
+        .review-container { background: #f0f9ff; border: 1.5px dashed #0891b2; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; min-height: 100px; display: flex; align-items: center; }
+        #review-box { color: #164e63; font-size: 0.95rem; line-height: 1.5; font-style: italic; width: 100%; }
+        .btn { background: #0891b2; color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
+        .btn.copied { background: #f97316 !important; }
+        .status-msg { display: none; color: #0891b2; font-size: 0.8rem; margin-top: 10px; font-weight: 600; }
+        .footer-text { font-size: 0.7rem; color: #94a3b8; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="header">
+        <div class="stars">★★★★★</div>
+        <h2>TECHNOBRIGHT EDUCATION</h2>
+        <div class="location">📍 Ritesh Tower, Punpun, Patna</div>
+    </div>
+    <div class="content">
+        <div class="review-container">
+            <div id="review-box">Review loading...</div>
+        </div>
+        <button id="main-btn" class="btn" onclick="copyAndGo()">
+            <span id="btn-icon">📋</span> <span id="btn-text">Copy Review & Open Maps</span>
+        </button>
+        <div id="status" class="status-msg">✔ Review Copied! Opening Punpun Profile...</div>
+        <div class="footer-text">Official AI Review System • Punpun Branch</div>
+    </div>
+</div>
+
+<script>
+    const sentences = [
+        "Punpun me computer seekhne ke liye Technobright se achi jagah nahi hai.",
+        "Sanjeev sir ka teaching style Punpun area me sabse famous hai, bahut acha samjhate hain.",
+        "Technobright Education me practical par bahut dhyan diya jata hai.",
+        "ADIT aur Tally courses ke liye Punpun ka number 1 center hai.",
+        "Railway station ke paas hone se yahan aana-jana bahut easy hai, location best hai.",
+        "Girls ke liye ye coaching bahut safe aur disciplined hai, environment bahut acha hai.",
+        "Sanjeev Sir har student ka doubt clear karte hain aur personal guidance dete hain.",
+        "Punpun me isse high-tech computer lab aur smart class kahi nahi hai.",
+        "Fees bhi affordable hai aur padhai ki quality bahut high hai, must join!",
+        "Maine yahan se ADIT kiya aur mera experience bahut hi badhiya raha.",
+        "Technobright Punpun me computer education ka ek trusted naam ban gaya hai.",
+        "Sanjeev sir ke sikhane ka tarika bilkul simple hai, sab turant samajh aa jata hai.",
+        "Agar aap Punpun ke aas-paas se hain toh computer ke liye yahi best option hai.",
+        "Yahan theory ke saath practical knowledge par poora focus rehta hai."
+    ];
+
+    function generateReview() {
+        let shuffled = sentences.sort(() => 0.5 - Math.random());
+        let count = Math.floor(Math.random() * 2) + 1; // 1 or 2 sentences for natural feel
+        return shuffled.slice(0, count).join(" ");
+    }
+
+    document.getElementById('review-box').innerText = generateReview();
+
+    function copyAndGo() {
+        const text = document.getElementById('review-box').innerText;
+        const btn = document.getElementById('main-btn');
+        navigator.clipboard.writeText(text).then(() => {
+            btn.classList.add('copied');
+            document.getElementById('btn-icon').innerText = "✔";
+            document.getElementById('btn-text').innerText = "Review Copied!";
+            document.getElementById('status').style.display = "block";
+            setTimeout(() => {
+                // Link updated with your Punpun Place ID
+                window.location.href = "https://search.google.com/local/writereview?placeid=ChIJHWAuKgOp8jkRVTqHoIUqYS0";
+            }, 1800);
+        });
+    }
+</script>
+</body>
+</html>
