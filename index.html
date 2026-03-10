@@ -7,26 +7,17 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background: #f0f4f8; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-        
-        /* Main Card */
         .card { background: white; width: 100%; max-width: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        
-        /* Blue Header - Exactly like your photo */
         .header { background: #1a56db; padding: 25px 20px; color: white; text-align: center; position: relative; }
         .header h2 { font-size: 1.2rem; margin-bottom: 5px; font-weight: 600; }
         .stars { color: #ffbc00; font-size: 1.2rem; margin-bottom: 8px; }
         .location { font-size: 0.85rem; opacity: 0.9; display: flex; align-items: center; justify-content: center; gap: 5px; }
-        
-        /* Review Text Box */
         .content { padding: 25px 20px; }
-        .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; position: relative; margin-bottom: 20px; }
-        .review-container::before { content: '“'; position: absolute; left: 10px; top: 0; font-size: 40px; color: #cbd5e1; font-family: serif; }
-        #review-box { color: #334155; font-size: 1rem; line-height: 1.6; font-style: italic; position: relative; z-index: 1; }
-        
-        /* Blue Button */
-        .btn { background: #1a56db; color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
-        .btn:hover { background: #1e429f; }
-        .btn:active { transform: scale(0.98); }
+        .review-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; position: relative; margin-bottom: 20px; text-align: left; min-height: 120px; }
+        #review-box { color: #334155; font-size: 0.95rem; line-height: 1.6; font-style: italic; }
+        .btn { background: #1a56db; color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; }
+        .btn.copied { background: #ff7043 !important; }
+        .status-msg { display: none; color: #2e7d32; font-size: 0.85rem; margin-top: 10px; text-align: center; font-weight: 600; }
         .footer-text { text-align: center; font-size: 0.75rem; color: #94a3b8; margin-top: 15px; }
     </style>
 </head>
@@ -41,37 +32,48 @@
     
     <div class="content">
         <div class="review-container">
-            <div id="review-box">Generating your unique AI review...</div>
+            <div id="review-box">Generating...</div>
         </div>
 
-        <button class="btn" onclick="copyAndGo()">
-            <span>📋</span> Copy Review & Continue
+        <button id="main-btn" class="btn" onclick="copyAndGo()">
+            <span id="btn-icon">📋</span> <span id="btn-text">Copy Review & Continue</span>
         </button>
         
-        <div class="footer-text">Powered by Future Boost AI Support</div>
+        <div id="status" class="status-msg">● Taking you to Google Reviews ●</div>
+        <div class="footer-text">Powered by AI • Authentic Student Reviews</div>
     </div>
 </div>
 
 <script>
-    const start = ["Best computer academy in Kurthaul!", "Sanjeev sir ki teaching style bahut achi hai.", "Great place to learn computer.", "Future Boost is the best institute.", "Best computer center in Patna.", "Amazing learning experience here."];
-    const features = ["Projector se padhai hone ke karan jaldi samajh aata hai.", "Animation videos se concept bilkul clear ho jate hain.", "Website support aur online test ki suvidha bahut badiya hai.", "Notes aur online portal se padhna bahut easy ho gaya hai.", "Modern technology se padhne ka maza hi kuch aur hai."];
-    const end = ["Must join if you want to learn computer!", "Best experience ever. 5 Stars!", "Thanks to Sanjeev sir for the support.", "Sahi mein Patna ka best computer center hai.", "Strongly recommended for everyone!"];
+    // Aapke diye huye real reviews ka data
+    const realReviews = [
+        "Future Boost Computer Academy, Kurthaul computer learning ke liye ek bahut achha institute hai. Sanjeev Sir ka teaching style bahut unique hai, wo har topic ko simple example se samjhate hain. Smart class aur online tests ki wajah se padhai aur bhi interesting ho gayi hai.",
+        "Pehle jab iska naam Technobright tha tab bhi institute achha tha, lekin ab Future Boost Computer Academy banne ke baad aur bhi better ho gaya hai. Yahan notes, quizzes aur online test system ki wajah se padhne ka tarika bahut easy ho gaya hai.",
+        "Future Boost Computer Academy, Kurthaul me padhai ka environment bahut positive hai. Sanjeev Sir students ko sirf computer hi nahi balki discipline aur confidence bhi sikhate hain. Smart class aur practical training learning ko aur effective bana dete hain.",
+        "Yeh institute computer courses ke liye ek great place hai. Yahan smart classes, online tests, quizzes aur proper notes milte hain jo exam preparation me bahut help karte hain. Teachers bhi bahut supportive hain.",
+        "Maine yahan computer course join kiya aur experience bahut achha raha. Future Boost Computer Academy me padhai ka system modern hai aur Sanjeev Sir ka guidance students ke liye bahut motivating hota hai. Kurthaul area me computer education ke liye yeh ek trusted institute hai."
+    ];
 
-    function generateReview() {
-        let s = start[Math.floor(Math.random() * start.length)];
-        let f = features[Math.floor(Math.random() * features.length)];
-        let e = end[Math.floor(Math.random() * end.length)];
-        return s + " " + f + " " + e;
-    }
-
-    const cleanReview = generateReview();
-    document.getElementById('review-box').innerText = cleanReview;
+    // Page load par random review dikhayein
+    document.getElementById('review-box').innerText = realReviews[Math.floor(Math.random() * realReviews.length)];
 
     function copyAndGo() {
         const text = document.getElementById('review-box').innerText;
+        const btn = document.getElementById('main-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnIcon = document.getElementById('btn-icon');
+        const status = document.getElementById('status');
+
         navigator.clipboard.writeText(text).then(() => {
-            alert("Review Copy Ho Gaya! ✅\n\nAb Maps par Paste karein.");
-            window.location.href = "https://search.google.com/local/writereview?placeid=ChIJ439J8Lin8jkRV6XkcLqOpdA";
+            btn.classList.add('copied');
+            btnIcon.innerText = "✔";
+            btnText.innerText = "Copied! Redirecting...";
+            status.style.display = "block";
+            
+            setTimeout(() => {
+                // Aapka Maps Review Link
+                window.location.href = "https://search.google.com/local/writereview?placeid=ChIJ439J8Lin8jkRV6XkcLqOpdA";
+            }, 1500);
         });
     }
 </script>
