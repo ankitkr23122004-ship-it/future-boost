@@ -8,9 +8,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background: #f0fdfa; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
         .card { background: white; width: 100%; max-width: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #ccfbf1; }
-        /* Punpun Theme: Teal/Cyan */
         .header { background: #0891b2; padding: 25px 20px; color: white; text-align: center; }
-        .header h2 { font-size: 1.1rem; margin-bottom: 5px; font-weight: 600; letter-spacing: 0.5px; }
+        .header h2 { font-size: 1.1rem; margin-bottom: 5px; font-weight: 600; }
         .stars { color: #fbbf24; font-size: 1.1rem; margin-bottom: 8px; }
         .location { font-size: 0.8rem; opacity: 0.9; }
         .content { padding: 25px 20px; text-align: center; }
@@ -28,45 +27,73 @@
     <div class="header">
         <div class="stars">★★★★★</div>
         <h2>TECHNOBRIGHT EDUCATION</h2>
-        <div class="location">📍 Ritesh Tower, Punpun, Patna</div>
+        <div class="location">📍 Punpun, Patna</div>
     </div>
     <div class="content">
         <div class="review-container">
-            <div id="review-box">Review loading...</div>
+            <div id="review-box">Smart review loading...</div>
         </div>
         <button id="main-btn" class="btn" onclick="copyAndGo()">
             <span id="btn-icon">📋</span> <span id="btn-text">Copy Review & Open Maps</span>
         </button>
-        <div id="status" class="status-msg">✔ Review Copied! Opening Punpun Profile...</div>
-        <div class="footer-text">Official AI Review System • Punpun Branch</div>
+        <div id="status" class="status-msg">✔ Copied! Redirecting to Google Maps...</div>
+        <div class="footer-text">Advanced AI Randomizer System</div>
     </div>
 </div>
 
 <script>
-    const sentences = [
-        "Punpun me computer seekhne ke liye Technobright se achi jagah nahi hai.",
-        "Sanjeev sir ka teaching style Punpun area me sabse famous hai, bahut acha samjhate hain.",
-        "Technobright Education me practical par bahut dhyan diya jata hai.",
-        "ADIT aur Tally courses ke liye Punpun ka number 1 center hai.",
-        "Railway station ke paas hone se yahan aana-jana bahut easy hai, location best hai.",
-        "Girls ke liye ye coaching bahut safe aur disciplined hai, environment bahut acha hai.",
-        "Sanjeev Sir har student ka doubt clear karte hain aur personal guidance dete hain.",
-        "Punpun me isse high-tech computer lab aur smart class kahi nahi hai.",
-        "Fees bhi affordable hai aur padhai ki quality bahut high hai, must join!",
-        "Maine yahan se ADIT kiya aur mera experience bahut hi badhiya raha.",
-        "Technobright Punpun me computer education ka ek trusted naam ban gaya hai.",
-        "Sanjeev sir ke sikhane ka tarika bilkul simple hai, sab turant samajh aa jata hai.",
-        "Agar aap Punpun ke aas-paas se hain toh computer ke liye yahi best option hai.",
-        "Yahan theory ke saath practical knowledge par poora focus rehta hai."
-    ];
+    // Sentence Spinner Logic
+    const parts = {
+        shuruat: [
+            "Punpun me computer seekhne ke liye",
+            "Agar computer sikhna hai toh",
+            "Technobright Education",
+            "Punpun area ka sabse badhiya",
+            "Mere hisab se Punpun me"
+        ],
+        tareef: [
+            "Technobright sabse best coaching hai.",
+            "is institute se achi jagah nahi milegi.",
+            "computer center bahut hi top quality ka hai.",
+            "Sanjeev sir ka teaching style ekdam mast hai.",
+            "yahan ki padhai bilkul practical based hai."
+        ],
+        extra: [
+            "Sanjeev sir har doubt ko bahut simple tarike se samjhate hain.",
+            "Yahan girls ki safety aur discipline ka pura dhyan rakha jata hai.",
+            "ADIT aur Tally ke liye yahan ka environment bahut positive hai.",
+            "Practical lab me har student ko apna pc milta hai practice ke liye.",
+            "Railway station ke ekdam paas hai toh aane-jane me problem nahi hoti.",
+            "Website support aur smart classes se padhna bahut easy ho gaya hai."
+        ],
+        ant: [
+            "Must join for better future!",
+            "Highly recommended to everyone.",
+            "Sahi me 5 star wali coaching hai.",
+            "Thank you Sanjeev sir for best guidance.",
+            "I am very satisfied with the classes here."
+        ]
+    };
 
-    function generateReview() {
-        let shuffled = sentences.sort(() => 0.5 - Math.random());
-        let count = Math.floor(Math.random() * 2) + 1; // 1 or 2 sentences for natural feel
-        return shuffled.slice(0, count).join(" ");
+    function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    function generateUltraReview() {
+        let dice = Math.random();
+        // Variety 1: Shuruat + Tareef + Ant
+        if (dice < 0.4) {
+            return pick(parts.shuruat) + " " + pick(parts.tareef) + " " + pick(parts.ant);
+        } 
+        // Variety 2: Extra + Ant (Seedha Point par)
+        else if (dice < 0.7) {
+            return pick(parts.extra) + " " + pick(parts.ant);
+        }
+        // Variety 3: Tareef + Extra + Ant (Lamba Review)
+        else {
+            return pick(parts.tareef) + " " + pick(parts.extra) + " " + pick(parts.ant);
+        }
     }
 
-    document.getElementById('review-box').innerText = generateReview();
+    document.getElementById('review-box').innerText = generateUltraReview();
 
     function copyAndGo() {
         const text = document.getElementById('review-box').innerText;
@@ -74,10 +101,9 @@
         navigator.clipboard.writeText(text).then(() => {
             btn.classList.add('copied');
             document.getElementById('btn-icon').innerText = "✔";
-            document.getElementById('btn-text').innerText = "Review Copied!";
+            document.getElementById('btn-text').innerText = "Copied!";
             document.getElementById('status').style.display = "block";
             setTimeout(() => {
-                // Link updated with your Punpun Place ID
                 window.location.href = "https://search.google.com/local/writereview?placeid=ChIJHWAuKgOp8jkRVTqHoIUqYS0";
             }, 1800);
         });
